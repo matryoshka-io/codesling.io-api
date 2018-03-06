@@ -14,9 +14,16 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
+let verify = function () {
+  if (hello() === 1) {
+    console.log('Success!');
+  }
+}
+
 app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    writeFile(path, req.body.code, (errWritingFile) => {
+    console.log(req.body.code + `\n` + `console.log('hahahah');`);
+    writeFile(path, req.body.code + `\n` + `console.log('hahahah');`, (errWritingFile) => {
       if (errWritingFile) {
         res.send(errWritingFile);
       } else {
