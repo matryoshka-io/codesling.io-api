@@ -17,13 +17,15 @@ app.use(bodyParser.json());
 let verify = function () {
   if (hello() === 1) {
     console.log('Success!');
+  } else {
+    console.log('Not sook sess');
   }
 }
 
 app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    console.log(req.body.code + `\n` + `console.log('hahahah');`);
-    writeFile(path, req.body.code + `\n` + `console.log('hahahah');`, (errWritingFile) => {
+    console.log('// yo \n' + req.body.code + `\n` + verify.toString() + `\n verify();`);
+    writeFile(path, '// yo \n' + req.body.code + `\n` + verify.toString() + `\n verify();`, (errWritingFile) => {
       if (errWritingFile) {
         res.send(errWritingFile);
       } else {
