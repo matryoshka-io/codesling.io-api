@@ -1,6 +1,6 @@
 # Introduction
 
-Codesling.io is typeracer for algo challenges - see who can solve the problem first!
+Codesling.io is typeracer for algo challenges – see who can solve the problem first!
 
 ## Get Started
 
