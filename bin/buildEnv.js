@@ -11,4 +11,8 @@ for (const folder of folders) {
     writeStream.write(envVariable + '\n');
   }
   writeStream.end();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> including buildEnv files
