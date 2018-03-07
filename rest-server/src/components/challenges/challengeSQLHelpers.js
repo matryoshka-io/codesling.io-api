@@ -6,7 +6,7 @@ export const addChallengeHelper = ({ title, content, difficulty }) => {
   `;
 };
 
-export const addChallengeHelper2 = ({ testCase, challenge }) => {
+export const addChallengeHelper2 = (testCase, challenge) => {
   return `
     INSERT INTO testcases (content, challenge_id)
     VALUES ('${testCase}', '${challenge}')
