@@ -30,26 +30,29 @@ app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
     // console.log('// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`);
     // const testCase = await 
-    const data = await axios.get(`http://localhost:3396/api/testCases/${req.body.challegenId}`);
-    console.log(data);
-    writeFile(path, req.body, (errWritingFile) => {
-      if (errWritingFile) {
-        res.send(errWritingFile);
-      } else {
-        execFile('node', [path], (errExecutingFile, stdout, stderr) => {
-          if (errExecutingFile) {
-            let stderrFormatted = stderr.split('\n');
-            stderrFormatted.shift();
-            stderrFormatted = stderrFormatted.join('\n');
-            res.send(stderrFormatted);
+    axios.get(`http://localhost:3396/api/testCases/${req.body.challengeId}`)
+      .then((data) => {
+        // console.log(data);
+        console.log(data.data.content);
+        writeFile(path, req.body.code + '\n' + data.data.content, (errWritingFile) => {
+          if (errWritingFile) {
+            res.send(errWritingFile);
           } else {
-            res.write(JSON.stringify(stdout));
-            console.log(stdout.split('\n')[stdout.split('\n').length - 2]); // lol
-            res.send();
+            execFile('node', [path], (errExecutingFile, stdout, stderr) => {
+              if (errExecutingFile) {
+                let stderrFormatted = stderr.split('\n');
+                stderrFormatted.shift();
+                stderrFormatted = stderrFormatted.join('\n');
+                res.send(stderrFormatted);
+              } else {
+                res.write(JSON.stringify(stdout));
+                console.log(stdout.split('\n')[stdout.split('\n').length - 2]); // lol
+                res.send();
+              }
+            });
           }
         });
-      }
-    });
+      });
   });
 });
 

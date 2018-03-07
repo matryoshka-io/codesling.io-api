@@ -1,5 +1,6 @@
 import {
-  addTestCaseQuery
+  addTestCaseQuery,
+  getTestCaseQuery
 } from './testCasesQuery';
 import {
   success,
@@ -18,9 +19,10 @@ export const addTestCaseController = async (req, res) => {
 
 export const getTestCaseController = async (req, res) => {
   try {
+    console.log('========> ' + req.params.challengeId);
     const data = await getTestCaseQuery(req.params.challengeId);
-    success('getTestCaseController - successfully got test case ', data);
-    return res.status(200).send(data);
+    success('getTestCaseController - successfully got test case ----------------- ', JSON.stringify(data));
+    res.status(200).send(data.rows[0]);
   } catch (err) {
     error('getTestCaseController - error= ', err);
   }

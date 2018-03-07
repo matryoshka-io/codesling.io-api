@@ -1,6 +1,7 @@
 import db from '../../config/database';
 import {
-  addTestCaseHelper
+  addTestCaseHelper,
+  getTestCaseHelper
 } from './testCasesSQLHelpers';
 import {
   success,
