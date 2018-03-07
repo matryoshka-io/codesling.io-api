@@ -33,7 +33,7 @@ app.post('/submit-code', (req, res) => {
     axios.get(`http://localhost:3396/api/testCases/${req.body.challengeId}`)
       .then((data) => {
         // console.log(data);
-        console.log(data.data.content);
+        // console.log(data.data.content);
         writeFile(path, req.body.code + '\n' + data.data.content, (errWritingFile) => {
           if (errWritingFile) {
             res.send(errWritingFile);
@@ -46,7 +46,7 @@ app.post('/submit-code', (req, res) => {
                 res.send(stderrFormatted);
               } else {
                 res.write(JSON.stringify(stdout));
-                console.log(stdout.split('\n')[stdout.split('\n').length - 2]); // lol
+                // console.log(stdout.split('\n')[stdout.split('\n').length - 2]); // lol
                 res.send();
               }
             });
