@@ -1,0 +1,77 @@
+version: '3.1'
+services:
+  nginx:
+    build: ./nginx
+    container_name: cs_nginx
+    networks:
+      main:
+        aliases:
+          - web
+
+  client:
+    image: codesling/ui:v0
+    container_name: cs_client
+    ports:
+      - "1337:1337"
+    command:
+      - "yarn start:server"
+    networks:
+      main:
+        aliases:
+          - static
+
+  sockets:
+    build: ./socket-server
+    container_name: cs_sockets
+    ports:
+      - "4155:4155"
+    command:
+      - "yarn start"
+    networks:
+      main:
+        aliases:
+          - sockets
+
+  coderunner:
+    build: ./services/coderunner-service
+    container_name: cs_runner
+    ports:
+      - "4000:4000"
+    command:
+      - "yarn start"
+    networks:
+      main:
+        aliases:
+          - coderunner
+
+  rest:
+    build: ./rest-server
+    container_name: cs_rest
+    ports:
+      - "3396:3396"
+    command:
+      - "yarn start"
+    depends_on:
+      - psql
+    networks:
+      main:
+        aliases:
+          - api
+
+  psql:
+    image: library/postgres:alpine
+    container_name: cs_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: codesling
+    networks:
+      main:
+        aliases:
+          - db
+
+networks:
+  main:
