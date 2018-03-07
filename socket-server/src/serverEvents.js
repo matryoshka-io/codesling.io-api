@@ -4,17 +4,24 @@
  *
  */
 export const serverInitialState = ({ client, room }, payload) => {
+  // console.log('client', client)
+  // console.log('room', room)
+  //PAYLOAD IS EMPTY???
+  console.log('payload', payload)
   if (!room.get('challenge')) {
     room.set('challenge', payload);
     client.emit('server.initialState', {
       id: client.id,
-      text: room.get('text'),
+      // text: room.get('text'),
+      text: room.text,
       challenge: payload,
     });
   } else {
+    console.log('rooooooom', room)
     client.emit('server.initialState', {
       id: client.id,
-      text: room.get('text'),
+      // text: room.get('text'),
+      text: room.text,
       challenge: room.get('challenge'),
     });
   }
