@@ -15,3 +15,13 @@ export const addTestCaseController = async (req, res) => {
     error('addTestCaseController - error= ', err);
   }
 };
+
+export const getTestCaseController = async (req, res) => {
+  try {
+    const data = await getTestCaseQuery(req.params.challengeId);
+    success('getTestCaseController - successfully got test case ', data);
+    return res.status(200).send(data);
+  } catch (err) {
+    error('getTestCaseController - error= ', err);
+  }
+};

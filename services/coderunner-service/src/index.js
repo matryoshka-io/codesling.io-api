@@ -6,6 +6,8 @@ import tmp from 'tmp';
 import cors from 'cors';
 // import vm from 'vm';
 
+import axios from 'axios';
+
 import { success } from './lib/log';
 
 const app = express();
@@ -14,18 +16,23 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
-let verify = function () {
+/* let verify = function () {
   if (hello() === 1) {
     console.log('Success!');
   } else {
     console.log('Not sook sess');
   }
-}
+} */
+
+// '// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`
 
 app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    console.log('// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`);
-    writeFile(path, '// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`, (errWritingFile) => {
+    // console.log('// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`);
+    // const testCase = await 
+    const data = await axios.get(`http://localhost:3396/api/testCases/${req.body.challegenId}`);
+    console.log(data);
+    writeFile(path, req.body, (errWritingFile) => {
       if (errWritingFile) {
         res.send(errWritingFile);
       } else {

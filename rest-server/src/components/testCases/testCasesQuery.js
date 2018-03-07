@@ -17,3 +17,14 @@ export const addTestCaseQuery = async (body) => {
     error('addTestCaseQuery - error= ', err);
   }
 };
+
+export const getTestCaseQuery = async (challengeId) => {
+  try {
+    const queryString = getTestCaseHelper(challengeId);
+    const data = db.queryAsync(queryString);
+    success('getTestCaseQuery - successfully got test case ', data);
+    return data;
+  } catch (err) {
+    error('getTestCaseQuery - error= ', err);
+  }
+};
