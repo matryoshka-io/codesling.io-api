@@ -37,7 +37,6 @@ export const loginController = async (req, res) => {
     success('loginController - successfully retrieved data ', rows[0]);
     const token = await generateToken(id, email);
     rows[0].token = token;
-    console.log(token);
     return res.status(200).append('authorization', JSON.stringify(token)).send(rows[0]);
   } catch (err) {
     error('loginController - error= ', err);

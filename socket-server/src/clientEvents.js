@@ -27,7 +27,6 @@ const clientReady = ({ io, client, room }, payload) => {
 
 const clientUpdate = ({ io, client, room }, payload) => {
   const { text, email } = payload;
-  console.log(email);
   success('client update heard. payload.text = ', payload);
   room.set('text', text);
   room.set('email', email);
