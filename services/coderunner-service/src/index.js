@@ -24,8 +24,8 @@ let verify = function () {
 
 app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    console.log('// yo \n' + req.body.code + `\n` + verify.toString() + `\n verify();`);
-    writeFile(path, '// yo \n' + req.body.code + `\n` + verify.toString() + `\n verify();`, (errWritingFile) => {
+    console.log('// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`);
+    writeFile(path, '// yo \n' + req.body.code + `\n` + verify.toString() + `\n\nverify();`, (errWritingFile) => {
       if (errWritingFile) {
         res.send(errWritingFile);
       } else {
@@ -37,6 +37,7 @@ app.post('/submit-code', (req, res) => {
             res.send(stderrFormatted);
           } else {
             res.write(JSON.stringify(stdout));
+            console.log(stdout.split('\n')[stdout.split('\n').length - 2]); // lol
             res.send();
           }
         });
