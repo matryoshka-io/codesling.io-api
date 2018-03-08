@@ -25,18 +25,12 @@ io.on('connection', (client) => {
 
 io.on('connection', (socket) => {
   success('client connected to messages');
-  // socket.on('createUsername', (data) => {
-  //   console.log(data);
-  //   if (users.indexOf(data) > -1) {
-  //     socket.emit('setUsername', { username: data })
-  //   }
-  // });
   socket.on('click', () => {
     success('client has submitted')
   })
   socket.on('message', (data) => {
-    success('Received message')
-    io.sockets.emit('newmsg', data);
+    success('Received message', data.message)
+    io.sockets.emit('newMessage', data);
   });
 });
 
