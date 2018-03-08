@@ -47,7 +47,6 @@ export const updateCloutQuery = async (user_id) => {
 export const fetchUserByEmailQuery = async (email) => {
   try {
     const queryString = fetchUserByEmailHelper(email);
-    console.log(queryString);
     const data = db.queryAsync(queryString);
     success('fetchUserByEmailQuery - successfully retrieved user ', data);
     return data;

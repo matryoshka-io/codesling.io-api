@@ -34,10 +34,8 @@ app.post('/submit-code', (req, res) => {
                 const output = stdout.split('\n');
                 const result = output[output.length - 2];
                 if (result === 'success') {
-                  console.log('---------> ' + req.body.email);
                   axios.get(`http://localhost:3396/api/users/user/${req.body.email}`)
                     .then((data) => { // eslint-disable-line
-                      // console.log(data.data);
                       axios.post(`http://localhost:3396/api/users/updateClout/${data.data.id}`)
                         .then((data) => { // eslint-disable-line
                           res.write('Congratulations, you solved the challenge!');
@@ -48,9 +46,6 @@ app.post('/submit-code', (req, res) => {
                   res.write('Incorrect solution!');
                   res.send();
                 }
-                // console.log(output[output.length - 2]);
-                // res.write(JSON.stringify(stdout));
-                // res.send();
               }
             });
           }

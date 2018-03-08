@@ -32,7 +32,6 @@ export const updateCloutController = async (req, res) => {
 
 export const fetchUserByEmailController = async (req, res) => {
   try {
-    console.log(req.params);
     const data = await fetchUserByEmailQuery(req.params.email);
     success('fetchUserByEmailController – successfully retrieved user ', data);
     res.status(200).send(data.rows[0]);
