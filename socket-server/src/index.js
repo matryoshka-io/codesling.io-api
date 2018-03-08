@@ -28,7 +28,8 @@ io.on('connection', (socket) => {
     success('client has submitted')
   })
   socket.on('message', (data) => {
-    success('Received message', data.message)
+    success('Received message', data.message);
+    console.log('data', data)
     io.sockets.emit('newMessage', data);
   });
 });
