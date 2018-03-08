@@ -22,7 +22,6 @@ export const addChallengeQuery = async (body) => {
 export const addChallengeQuery2 = async (testCase, challengeId) => {
   try {
     const queryString = addChallengeHelper2(testCase, challengeId);
-    console.log(queryString);
     const data = await db.queryAsync(queryString);
     success('addChallengeQuery2 - successfully added challenge test case', data);
   } catch (err) {
