@@ -10,7 +10,7 @@ const server = http.createServer();
 const io = SocketIo(server);
 const rooms = new Rooms(io);
 
-const users = [];
+// const users = [];
 
 io.on('connection', (client) => {
   success('client connected');
@@ -25,13 +25,17 @@ io.on('connection', (client) => {
 
 io.on('connection', (socket) => {
   success('client connected to messages');
-  socket.on('createUsername', (data) => {
-    console.log(data);
-    if (users.indexOf(data) > -1) {
-      socket.emit('setUsername', { username: data })
-    }
-  });
+  // socket.on('createUsername', (data) => {
+  //   console.log(data);
+  //   if (users.indexOf(data) > -1) {
+  //     socket.emit('setUsername', { username: data })
+  //   }
+  // });
+  socket.on('click', () => {
+    success('client has submitted')
+  })
   socket.on('message', (data) => {
+    success('Received message')
     io.sockets.emit('newmsg', data);
   });
 });
