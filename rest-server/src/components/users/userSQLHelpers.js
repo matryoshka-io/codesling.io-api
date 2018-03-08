@@ -12,3 +12,18 @@ export const fetchUserHelper = (user_id) => {
     WHERE id=${user_id}
   `;
 };
+
+export const updateCloutHelper = (user_id) => {
+  return `
+    UPDATE users SET clout = clout + 1
+    WHERE id = ${user_id}
+  `
+};
+
+export const fetchUserByEmailHelper = (email) => {
+  return `
+    SELECT id
+    FROM users
+    WHERE email = ${email}
+  `
+};
