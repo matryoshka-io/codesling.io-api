@@ -10,6 +10,8 @@ const server = http.createServer();
 const io = SocketIo(server);
 const rooms = new Rooms(io);
 
+const users = [];
+
 io.on('connection', (client) => {
   success('client connected');
   const { roomId } = client.handshake.query;
@@ -18,6 +20,19 @@ io.on('connection', (client) => {
 
   each(clientEvents, (handler, event) => {
     client.on(event, handler.bind(null, { io, client, room }));
+  });
+});
+
+io.on('connection', (socket) => {
+  success('client connected to messages');
+  socket.on('createUsername', (data) => {
+    console.log(data);
+    if (users.indexOf(data) > -1) {
+      socket.emit('setUsername', { username: data })
+    }
+  });
+  socket.on('message', (data) => {
+    io.sockets.emit('newmsg', data);
   });
 });
 
