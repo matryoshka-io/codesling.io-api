@@ -36,9 +36,10 @@ export const serverLeave = ({ io, room }) => {
 };
 
 export const serverRun = ({ io, room }, { stdout, email }) => {
+  const solvable = stdout !== 'Congratulations, you solved the challenge!';
   io
     .in(room.get('id'))
-    .emit('server.run', { stdout, email });
+    .emit('server.run', { stdout, email, solvable });
 };
 
 export const serverMessage = ({ io, room }, message) => {
