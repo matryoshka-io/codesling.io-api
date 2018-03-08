@@ -10,7 +10,6 @@ const server = http.createServer();
 const io = SocketIo(server);
 const rooms = new Rooms(io);
 
-// const users = [];
 
 io.on('connection', (client) => {
   success('client connected');
