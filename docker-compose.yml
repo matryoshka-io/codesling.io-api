@@ -1,0 +1,12 @@
+version: '2'
+services:
+  database:
+    image: postgres:latest
+    container_name: codesling_db
+    restart: always
+    ports: 
+      -  "5432:5432"
+    environment:
+      POSTGRES_USER: sling
+      POSTGRES_PASSWORD: slingtastic
+      POSTGRES_DB: codesling
