@@ -3,7 +3,8 @@ import {
   fetchAllUserHelper,
   fetchUserHelper,
   updateCloutHelper,
-  fetchUserByEmailHelper
+  fetchUserByEmailHelper,
+  getUserCloutHelper
 } from './userSQLHelpers';
 import {
   success,
@@ -46,10 +47,22 @@ export const updateCloutQuery = async (user_id) => {
 export const fetchUserByEmailQuery = async (email) => {
   try {
     const queryString = fetchUserByEmailHelper(email);
+    console.log(queryString);
     const data = db.queryAsync(queryString);
     success('fetchUserByEmailQuery - successfully retrieved user ', data);
     return data;
   } catch (err) {
     error('fetchUserByEmailQuery - error= ', err);    
+  }
+};
+
+export const getUserCloutQuery = async (user_id) => {
+  try {
+    const queryString = getUserCloutHelper(user_id);
+    const data = db.queryAsync(queryString);
+    success('getUserCloutQuery - successfully retrieved clout ', data);
+    return data;
+  } catch (err) {
+    error('getUserCloutQuery - error= ', err);    
   }
 };

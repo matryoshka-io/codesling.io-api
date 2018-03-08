@@ -2,7 +2,8 @@ import db from '../../config/database';
 import {
   fetchAllUserQuery,
   updateCloutQuery,
-  fetchUserByEmailQuery
+  fetchUserByEmailQuery,
+  getUserCloutQuery
 } from './userQueries';
 import {
   success,
@@ -31,10 +32,21 @@ export const updateCloutController = async (req, res) => {
 
 export const fetchUserByEmailController = async (req, res) => {
   try {
+    console.log(req.params);
     const data = await fetchUserByEmailQuery(req.params.email);
     success('fetchUserByEmailController – successfully retrieved user ', data);
-    return res.status(200).send(data);
+    res.status(200).send(data.rows[0]);
   } catch (err) {
     error('fetchUserByEmailController - error= ', error);    
+  }
+};
+
+export const getUserCloutController = async (req, res) => {
+  try {
+    const data = await getUserCloutQuery(req.params.userId);
+    success('getUserCloutController – successfully retrieved clout ', data);
+    return res.status(200).send(data.rows[0]);
+  } catch (err) {
+    error('getUserCloutController - error= ', error);    
   }
 };

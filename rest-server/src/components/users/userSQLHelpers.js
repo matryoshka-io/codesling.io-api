@@ -24,6 +24,14 @@ export const fetchUserByEmailHelper = (email) => {
   return `
     SELECT id
     FROM users
-    WHERE email = ${email}
+    WHERE email = '${email}'
+  `
+};
+
+export const getUserCloutHelper = (user_id) => {
+  return `
+    SELECT clout
+    FROM users
+    WHERE id = ${user_id}
   `
 };
