@@ -34,13 +34,14 @@ app.post('/submit-code', (req, res) => {
                 const output = stdout.split('\n');
                 const result = output[output.length - 2];
                 if (result === 'success') {
-                  axios.get(`${process.env.HOST}/api/users/user/${req.body.email}`)
+                  let userId;
+                  axios.get(`http://localhost:3396/api/users/user/${req.body.email}`)
                     .then((data) => { // eslint-disable-line
-                      axios.post(`${process.env.HOST}/api/users/updateClout/${data.data.id}`)
-                        .then((data) => { // eslint-disable-line
-                          res.write('Congratulations, you solved the challenge!');
-                          res.send();
-                        });
+                      userId = data.data.id;
+                      return axios.post(`http://localhost:3396/api/users/updateClout/${userId}`);
+                    }).then(() => {
+                      res.write('Congratulations, you solved the challenge!');
+                      res.send();
                     });
                 } else {
                   res.write('Incorrect solution!');
