@@ -14,7 +14,6 @@ export const signUpQuery = async (body) => {
     const data = await db.queryAsync(queryString);
     // db.release();
     success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
-
     return data;
   } catch (err) {
     error('signUpQuery - error= ', err);
