@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    axios.get(`http://localhost:3396/api/testCases/${req.body.challengeId}`)
+    axios.get(`${process.env.HOST}/api/testCases/${req.body.challengeId}`)
       .then((data) => {
         writeFile(path, `${req.body.code}\n${data.data.content}`, (errWritingFile) => {
           if (errWritingFile) {
@@ -34,9 +34,9 @@ app.post('/submit-code', (req, res) => {
                 const output = stdout.split('\n');
                 const result = output[output.length - 2];
                 if (result === 'success') {
-                  axios.get(`http://localhost:3396/api/users/user/${req.body.email}`)
+                  axios.get(`${process.env.HOST}/api/users/user/${req.body.email}`)
                     .then((data) => { // eslint-disable-line
-                      axios.post(`http://localhost:3396/api/users/updateClout/${data.data.id}`)
+                      axios.post(`${process.env.HOST}/api/users/updateClout/${data.data.id}`)
                         .then((data) => { // eslint-disable-line
                           res.write('Congratulations, you solved the challenge!');
                           res.send();
