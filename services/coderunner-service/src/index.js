@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    axios.get(`${process.env.HOST}/api/testCases/${req.body.challengeId}`)
+    axios.get(`http://localhost:3396/api/testCases/${req.body.challengeId}`)
       .then((data) => {
         writeFile(path, `${req.body.code}\n${data.data.content}`, (errWritingFile) => {
           if (errWritingFile) {
