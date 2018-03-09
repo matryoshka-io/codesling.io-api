@@ -21,5 +21,17 @@ io.on('connection', (client) => {
   });
 });
 
+io.on('connection', (socket) => {
+  success('client connected to message');
+  socket.on('serverChanged', () => {
+    success('Picking up change in server');
+  });
+  socket.on('message', (data) => {
+
+    success('Received message');
+    io.sockets.emit('newMessage', data);
+  });
+});
+
 const PORT = process.env.PORT || 4155;
 server.listen(PORT, () => success(`socket server listening on port ${PORT}`));
