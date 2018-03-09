@@ -7,6 +7,7 @@ import {
   serverLeave,
   serverRun,
   serverMessage,
+  serverNewMessage,
 } from './serverEvents';
 
 /**
@@ -63,12 +64,23 @@ const clientMessage = async ({ io, room }, payload) => {
   }
 };
 
+const clientChat = async ({ io }, payload) => {
+  success('client connected to chat');
+  console.log('payload from client chat', payload);
+  try {
+    serverNewMessage({ io }, payload);
+  } catch (e) {
+    success('error saving chat to db ', e);
+  }
+};
+
 const clientEmitters = {
   'client.ready': clientReady,
   'client.update': clientUpdate,
   'client.disconnect': clientDisconnect,
   'client.run': clientRun,
   'client.message': clientMessage,
+  'client.chat': clientChat,
 };
 
 export default clientEmitters;
