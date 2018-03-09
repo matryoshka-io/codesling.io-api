@@ -27,7 +27,6 @@ export const loginQuery = async (body) => {
     const queryString = loginHelper(body);
     const data = await db.queryAsync(queryString);
     // db.end();
-    console.log('data', data.rows[0].username)
     success('loginQuery - successfully retrieved data from user ', data.rows[0]);
     return data;
   } catch (err) {
