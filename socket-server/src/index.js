@@ -10,7 +10,6 @@ const server = http.createServer();
 const io = SocketIo(server);
 const rooms = new Rooms(io);
 
-
 io.on('connection', (client) => {
   success('client connected');
   const { roomId } = client.handshake.query;
@@ -25,12 +24,10 @@ io.on('connection', (client) => {
 io.on('connection', (socket) => {
   success('client connected to message');
   socket.on('serverChanged', () => {
-    success('Picking up change in server')
+    success('Picking up change in server');
   });
   socket.on('message', (data) => {
-    console.log('data on message', data)
     success('Received message');
-    console.log('data', data)
     io.sockets.emit('newMessage', data);
   });
 })
