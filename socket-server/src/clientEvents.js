@@ -44,7 +44,7 @@ const clientRun = async ({ io, room }, payload) => {
   const url = process.env.CODERUNNER_SERVICE_URL;
 
   try {
-    const { data } = await axios.post(`${url}/submit-code`, { code: text, challengeId });
+    const { data } = await axios.post(`${url}/submit-code`, { code: text, challengeId, email });
     const stdout = data;
     serverRun({ io, room }, { stdout, email });
   } catch (e) {

@@ -20,7 +20,7 @@ app.post('/submit-code', (req, res) => {
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
     axios.get(`http://localhost:3396/api/testCases/${req.body.challengeId}`)
       .then((data) => {
-        writeFile(path, req.body.code + '\n' + data.data.content, (errWritingFile) => {
+        writeFile(path, `${req.body.code}\n${data.data.content}`, (errWritingFile) => {
           if (errWritingFile) {
             res.send(errWritingFile);
           } else {
@@ -31,10 +31,21 @@ app.post('/submit-code', (req, res) => {
                 stderrFormatted = stderrFormatted.join('\n');
                 res.send(stderrFormatted);
               } else {
-                let output = stdout.split('\n');
-                console.log(output[output.length - 2]);
-                res.write(JSON.stringify(stdout));
-                res.send();
+                const output = stdout.split('\n');
+                const result = output[output.length - 2];
+                if (result === 'success') {
+                  axios.get(`http://localhost:3396/api/users/user/${req.body.email}`)
+                    .then((data) => { // eslint-disable-line
+                      axios.post(`http://localhost:3396/api/users/updateClout/${data.data.id}`)
+                        .then((data) => { // eslint-disable-line
+                          res.write('Congratulations, you solved the challenge!');
+                          res.send();
+                        });
+                    });
+                } else {
+                  res.write('Incorrect solution!');
+                  res.send();
+                }
               }
             });
           }
