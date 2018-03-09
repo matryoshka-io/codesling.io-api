@@ -54,7 +54,6 @@ const clientRun = async ({ io, room }, payload) => {
 
 const clientMessage = async ({ io, room }, payload) => {
   success('client message heard');
-  console.log('payload from client message', payload)
   const url = process.env.REST_SERVER_URL;
   try {
     const { data } = await axios.post(`${url}/messages/`, payload);
