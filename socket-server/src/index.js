@@ -23,16 +23,17 @@ io.on('connection', (client) => {
 });
 
 io.on('connection', (socket) => {
-  success('client connected to messages');
-  socket.on('click', () => {
-    success('client has submitted')
-  })
+  success('client connected to message');
+  socket.on('serverChanged', () => {
+    success('Picking up change in server')
+  });
   socket.on('message', (data) => {
-    success('Received message', data.message);
+    console.log('data on message', data)
+    success('Received message');
     console.log('data', data)
     io.sockets.emit('newMessage', data);
   });
-});
+})
 
 const PORT = process.env.PORT || 4155;
 server.listen(PORT, () => success(`socket server listening on port ${PORT}`));
