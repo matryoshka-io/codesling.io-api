@@ -2,13 +2,21 @@
 
 const fileSystem = require('fs');
 const path = require('path');
-const env = require('../config/.env');
+const config = require('../config/.env');
+const environment = process.argv[2];
 
-const folders = Object.keys(env);
+if (!config[environment]) {
+  console.warn('Cannot find config for the requested environment');
+  process.exit(1);
+} else {
+  console.log(`Processing configuration for ${environment}`);
+}
+
+const folders = Object.keys(config[environment]);
 for (const folder of folders) {
   const writeStream = fileSystem.createWriteStream(path.join('./', folder, '.env'));
-  for (const envVariable of env[folder]) {
-    writeStream.write(envVariable + '\n');
+  for (const cfgVariable of config[environment][folder]) {
+    writeStream.write(cfgVariable + '\n');
   }
   writeStream.end();
 <<<<<<< HEAD
