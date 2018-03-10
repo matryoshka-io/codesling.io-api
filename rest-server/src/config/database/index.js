@@ -3,23 +3,32 @@ require('dotenv').config();
 import { Pool } from 'pg';
 import Promise from 'bluebird';
 
-import { 
+import {
   success,
   error,
 } from '../../lib/log';
 
 /**
- * config for pg pool 
+ * config for pg pool
  * limiting number of connections to 20
  * must end connection after each query => database.end()
  */
 
+// const config = {
+//   user: process.env.NODE_ENV === 'production' ? process.env.AWS_USER : process.env.LOCAL_USER,
+//   host: process.env.NODE_ENV === 'production' ? process.env.AWS_HOST : process.env.LOCAL_HOST,
+//   database: process.env.NODE_ENV === 'production' ? process.env.AWS_DATABASE : process.env.LOCAL_DATABASE,
+//   password: process.env.NODE_ENV === 'production' ? process.env.AWS_PASSWORD : process.env.LOCAL_PASSWORD,
+//   port: process.env.NODE_ENV === 'production' ? process.env.AWS_PORT : process.env.LOCAL_PORT,
+//   max: 20
+// };
+
 const config = {
-  user: process.env.NODE_ENV === 'production' ? process.env.AWS_USER : process.env.LOCAL_USER,
-  host: process.env.NODE_ENV === 'production' ? process.env.AWS_HOST : process.env.LOCAL_HOST,
-  database: process.env.NODE_ENV === 'production' ? process.env.AWS_DATABASE : process.env.LOCAL_DATABASE,
-  password: process.env.NODE_ENV === 'production' ? process.env.AWS_PASSWORD : process.env.LOCAL_PASSWORD,
-  port: process.env.NODE_ENV === 'production' ? process.env.AWS_PORT : process.env.LOCAL_PORT,
+  user: process.env.LOCAL_USER,
+  host: process.env.LOCAL_HOST,
+  database: process.env.LOCAL_DATABASE,
+  password: process.env.LOCAL_PASSWORD,
+  port: process.env.LOCAL_PORT,
   max: 20
 };
 
