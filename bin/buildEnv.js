@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // http://codewinds.com/blog/2013-08-19-nodejs-writable-streams.html
 
 const fileSystem = require('fs');
@@ -14,10 +15,10 @@ if (!config[environment]) {
 }
 
 const folders = Object.keys(config[environment]);
-for (const folder of folders) {
+for (const folder of folders) { // eslint-disable-line
   const writeStream = fileSystem.createWriteStream(path.join('./', folder, '.env'));
-  for (const cfgVariable of config[environment][folder]) {
-    writeStream.write(cfgVariable + '\n');
+  for (const cfgVariable of config[environment][folder]) { // eslint-disable-line
+    writeStream.write(cfgVariable + '\n'); // eslint-disable-line
   }
   writeStream.end();
 }
