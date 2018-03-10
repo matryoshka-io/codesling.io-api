@@ -37,7 +37,6 @@ export const serverLeave = ({ io, room }) => {
 
 export const serverRun = ({ io, room }, { stdout, email, timeStarted }) => {
   const solvable = stdout !== 'Congratulations, you solved the challenge!';
-  console.log(timeStarted);
   io
     .in(room.get('id'))
     .emit('server.run', { stdout, email, solvable, timeStarted }); // eslint-disable-line

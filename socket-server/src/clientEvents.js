@@ -47,7 +47,6 @@ const clientRun = async ({ io, room }, payload) => {
   try {
     const { data } = await axios.post(`${url}/submit-code`, { code: text, challengeId, email });
     const stdout = data;
-    console.log(timeStarted);
     serverRun({ io, room }, { stdout, email, timeStarted });
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -67,7 +66,6 @@ const clientMessage = async ({ io, room }, payload) => {
 
 const clientChat = async ({ io }, payload) => {
   success('client connected to chat');
-  console.log('payload from client chat', payload);
   try {
     serverNewMessage({ io }, payload);
   } catch (e) {
