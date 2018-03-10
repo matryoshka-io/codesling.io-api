@@ -41,13 +41,14 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  const { text, email, challengeId } = payload;
+  const { text, email, challengeId, timeStarted } = payload; // eslint-disable-line
   const url = process.env.CODERUNNER_SERVICE_URL;
 
   try {
     const { data } = await axios.post(`${url}/submit-code`, { code: text, challengeId, email });
     const stdout = data;
-    serverRun({ io, room }, { stdout, email });
+    console.log(timeStarted);
+    serverRun({ io, room }, { stdout, email, timeStarted });
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
   }
