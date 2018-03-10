@@ -40,7 +40,7 @@ export const serverRun = ({ io, room }, { stdout, email, timeStarted }) => {
   console.log(timeStarted);
   io
     .in(room.get('id'))
-    .emit('server.run', { stdout, email, solvable, timeStarted });
+    .emit('server.run', { stdout, email, solvable, timeStarted }); // eslint-disable-line
 };
 
 export const serverMessage = ({ io, room }, message) => {
