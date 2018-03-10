@@ -3,6 +3,7 @@
 const fileSystem = require('fs');
 const path = require('path');
 const config = require('../config/.env');
+
 const environment = process.argv[2];
 
 if (!config[environment]) {
